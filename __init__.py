@@ -1,12 +1,14 @@
 import os
+
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, current_user
 from flask_mail import Mail
-from biudzetas.email_settings import *
+from flask_sqlalchemy import SQLAlchemy
+
+from email_settings import *
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
@@ -16,8 +18,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.create_all()
 
-from biudzetas.models import Vartotojas, Irasas
 from biudzetas.models import *
+from biudzetas.models import Irasas, Vartotojas
 
 bcrypt = Bcrypt(app)
 mail = Mail(app)
@@ -36,6 +38,7 @@ class ManoModelView(ModelView):
         return current_user.is_authenticated and current_user.el_pastas == "donoras@gmail.com"
 
 from biudzetas import routes
+
 admin = Admin(app)
 admin.add_view(ManoModelView(Vartotojas, db.session))
 admin.add_view(ManoModelView(Irasas, db.session))

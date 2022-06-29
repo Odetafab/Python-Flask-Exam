@@ -1,8 +1,9 @@
-from flask_wtf import FlaskForm
-from wtforms import SubmitField, BooleanField, StringField, PasswordField, FloatField
-from wtforms.validators import DataRequired, ValidationError, EqualTo, Email
-from flask_wtf.file import FileField, FileAllowed
 from biudzetas import Vartotojas, current_user
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileAllowed, FileField
+from wtforms import (BooleanField, FloatField, PasswordField, StringField,
+                     SubmitField)
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
 class RegistracijosForma(FlaskForm):
