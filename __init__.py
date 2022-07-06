@@ -18,8 +18,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.create_all()
 
-from biudzetas.models import *
-from biudzetas.models import Irasas, Vartotojas
+# from biudzetas.models import *
+# from biudzetas.models import Irasas, Vartotojas
 
 bcrypt = Bcrypt(app)
 mail = Mail(app)
@@ -31,17 +31,17 @@ login_manager.login_message_category = 'info'
 @login_manager.user_loader
 def load_user(vartotojo_id):
     db.create_all()
-    return Vartotojas.query.get(int(vartotojo_id))
+    # return Vartotojas.query.get(int(vartotojo_id))
 
 class ManoModelView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.el_pastas == "donoras@gmail.com"
 
-from biudzetas import routes
+# from biudzetas import routes
 
 admin = Admin(app)
-admin.add_view(ManoModelView(Vartotojas, db.session))
-admin.add_view(ManoModelView(Irasas, db.session))
+# admin.add_view(ManoModelView(Vartotojas, db.session))
+# admin.add_view(ManoModelView(Irasas, db.session))
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
